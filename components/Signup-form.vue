@@ -26,8 +26,12 @@ export default {
         return{
         email: '',
         password :'',
-        role:'',
-        adding:''
+
+        role:''
+
+
+
+
         }
         
     }
