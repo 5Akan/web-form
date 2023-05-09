@@ -27,7 +27,7 @@ export default {
         email: '',
         password :'',
         role:'',
-        add:''
+        adding:''
         }
         
     }
