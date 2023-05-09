@@ -1,13 +1,35 @@
 <template>
   <form>
+      <!-- Two way Data Binding Using v-model -->
+      <!-- Select Boxes -->
       <label>Email</label>
-      <input type="email" required>
-  </form>
-</template>
+      <input type="email" required v-model = "email">
+      <!-- v-model directive allows us to track the content within "input" -->
 
+      <label>Password</label>
+      <input type="password" required v-model = "password">
+
+      <label>Role</label>
+        <select v-model="role">
+            <option value="developer">web developer</option>
+            <option value="designer">web designer</option>
+        </select>
+  </form>
+    <p>Email: {{email}}</p>
+    <p>Password: {{password}}</p>
+    <p>Role: {{role}}</p>
+</template>
+    
 <script>
 export default {
-
+    data(){
+        return{
+        email: '',
+        password :'',
+        role:''
+        }
+        
+    }
 }
 </script>
 
@@ -30,7 +52,7 @@ label{
     letter-spacing: 1px;
     font-weight: bold;
 }
-input{
+input, select{
     display: block;
     padding:10px 6px;
     width:100%;
