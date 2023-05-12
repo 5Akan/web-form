@@ -1,7 +1,7 @@
 <template>
   <form>
-      <!-- Two way Data Binding Using v-model -->
-      <!-- Select Boxes -->
+      <!-- Keyup for firing the addSkill fn -->
+      <!--  -->
       <label>Email</label>
       <input type="email" required v-model = "email">
       <!-- v-model directive allows us to track the content within "input" -->
@@ -14,26 +14,67 @@
             <option value="developer">web developer</option>
             <option value="designer">web designer</option>
         </select>
+         <div>
+            <label>Skills: </label>
+            <input type="text" v-model="tempSkills" @keyup.alt = "addSkill">
+            <div v-for="skill in skills" :key= "skill" class="pill">
+                <!-- Data bind a skill to key which is a unique item(skill) in skills. It is used along side  v-for-->
+                {{ skill }}
+            </div>
+        </div>
+        <div class="term">
+            <input type="checkbox" required v-model= "terms">
+            <label>Accept Terms and Conditions</label>
+        </div>
+        <div>
+            <input type="checkbox" value="rabi" v-model = "name">
+            <label>Rahbhee</label>
+        </div>
+        <div>
+            <input type="checkbox" value="akan" v-model = "name">
+            <label>Akanimoh</label>
+        </div>
+        <div>
+            <input type="checkbox" value="zoro" v-model = "name">
+            <label>Zoro</label>
+        </div>
+       
   </form>
     <p>Email: {{email}}</p>
     <p>Password: {{password}}</p>
     <p>Role: {{role}}</p>
+    <p>Check: {{terms}}</p>
+    <p>Names: {{name}}</p>
+    <p>Skills: {{tempSkills}}</p>
+    <p>Updateskills: {{skills}}</p>
 </template>
     
 <script>
 export default {
     data(){
         return{
-        email: '',
+        email: 'oakanimoh@gmail.com',
         password :'',
-
+        role:'designer',
+        adding:'',
+        terms:false,
+        name:[],
+        tempSkills:"",
+        skills:[],
         role:''
-
-
-
-
         }
         
+    },
+    methods:{
+            addSkill(e){
+            if(e.key === "," && this.tempSkills){
+                if(!this.skills.includes(this.tempSkills)){
+                   this.skills.push(this.tempSkills); 
+                }
+                
+                this.tempSkills = "";
+            }
+        }
     }
 }
 </script>
@@ -65,5 +106,12 @@ input, select{
     border: none;
     border-bottom: 1px solid #ddd;
     color: #555;
+}
+input[type='checkbox']{
+    display: inline-block;
+    width: 10px;
+    margin: 0 10px 0 0;
+    position: relative;
+    top: 2px;
 }
 </style>
