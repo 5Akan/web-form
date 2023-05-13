@@ -16,9 +16,10 @@
         </select>
          <div>
             <label>Skills: </label>
-            <input type="text" v-model="tempSkills" @keyup.alt = "addSkill">
-            <div v-for="skill in skills" :key= "skill" class="pill">
+            <input type="text" v-model="tempSkills" @keyup.alt = "addSkill" >
+            <div v-for = "skill in skills" :key = "skill" class ="pill" @click = "deleteSkill(skill)">
                 <!-- Data bind a skill to key which is a unique item(skill) in skills. It is used along side  v-for-->
+
                 {{ skill }}
             </div>
         </div>
@@ -67,12 +68,22 @@ export default {
     },
     methods:{
             addSkill(e){
+                console.log("pressed");
             if(e.key === "," && this.tempSkills){
                 if(!this.skills.includes(this.tempSkills)){
                    this.skills.push(this.tempSkills); 
                 }
                 
                 this.tempSkills = "";
+            }
+        },
+        deleteSkill(skill){
+            console.log("clicked");
+            if(skill){
+                this.skills = this.skills.filter((item)=>{
+                    //filter checks the array,if condition is true nothing happens if it is false then it removes item
+                    return item !== skill;
+                })
             }
         }
     }
@@ -113,5 +124,17 @@ input[type='checkbox']{
     margin: 0 10px 0 0;
     position: relative;
     top: 2px;
+}
+.pill{
+    display: inline-block;
+    margin: 20px 10px 0 0;
+    padding: 6px 12px;
+    background: #eee;
+    border-radius: 20px;
+    font-size:12px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
 }
 </style>
