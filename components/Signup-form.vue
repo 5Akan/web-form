@@ -61,7 +61,8 @@ export default {
         terms:false,
         name:[],
         tempSkills:"",
-        skills:[]
+        skills:[],
+        role:''
         }
         
     },
