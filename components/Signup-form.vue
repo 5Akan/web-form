@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent= "submitForm">
       <!-- Keyup for firing the addSkill fn -->
       <!--  -->
       <label>Email</label>
@@ -8,6 +8,9 @@
 
       <label>Password</label>
       <input type="password" required v-model = "password">
+      <div v-if= "password_error">
+          {{password_error}}
+      </div>
 
       <label>Role</label>
         <select v-model="role">
@@ -19,7 +22,6 @@
             <input type="text" v-model="tempSkills" @keyup.alt = "addSkill" >
             <div v-for = "skill in skills" :key = "skill" class ="pill" @click = "deleteSkill(skill)">
                 <!-- Data bind a skill to key which is a unique item(skill) in skills. It is used along side  v-for-->
-
                 {{ skill }}
             </div>
         </div>
@@ -27,19 +29,7 @@
             <input type="checkbox" required v-model= "terms">
             <label>Accept Terms and Conditions</label>
         </div>
-        <div>
-            <input type="checkbox" value="rabi" v-model = "name">
-            <label>Rahbhee</label>
-        </div>
-        <div>
-            <input type="checkbox" value="akan" v-model = "name">
-            <label>Akanimoh</label>
-        </div>
-        <div>
-            <input type="checkbox" value="zoro" v-model = "name">
-            <label>Zoro</label>
-        </div>
-       
+        <button>Submit Form</button>
   </form>
     <p>Email: {{email}}</p>
     <p>Password: {{password}}</p>
@@ -56,6 +46,7 @@ export default {
         return{
         email: 'oakanimoh@gmail.com',
         password :'',
+        password_error :"",
         role:'designer',
         adding:'',
         terms:false,
@@ -68,7 +59,6 @@ export default {
     },
     methods:{
             addSkill(e){
-                console.log("pressed");
             if(e.key === "," && this.tempSkills){
                 if(!this.skills.includes(this.tempSkills)){
                    this.skills.push(this.tempSkills); 
@@ -78,13 +68,21 @@ export default {
             }
         },
         deleteSkill(skill){
-            console.log("clicked");
             if(skill){
+                //The reason why we are assigning it to the skills array
+                //is because we are updating the skills array with the skills.filter
+                //method
                 this.skills = this.skills.filter((item)=>{
                     //filter checks the array,if condition is true nothing happens if it is false then it removes item
                     return item !== skill;
-                })
+                });
+                
             }
+        },
+        submitForm(){
+            console.log("Form submitted");
+             this.password_error = this.password.length >= 5 ? "": "Your char is less than five";
+
         }
     }
 }
